@@ -1,7 +1,7 @@
 const http =require("http")
 
 const server=http.createServer((req,res)=>{
-    res.send("Welcome to Todo App")
+    res.end("Welcome to Todo App")
 })
 
 server.listen(3000,"127.0.0.1",()=>{
