@@ -4,6 +4,9 @@ const server=http.createServer((req,res)=>{
     console.log({req,res})
     // res.end("Welcome to Todo App")
     if(req.url==='/todos' && req.method==='GET'){
+        res.writeHead(200,{
+            "content-type":""
+        })
         res.end("Fetching all todos...")
     }else if(req.url==='/todos/create-todos' && req.method==='POST'){
         res.end("Creating a new todo...")
