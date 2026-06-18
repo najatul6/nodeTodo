@@ -1,25 +1,28 @@
-const http = require ("http")
+const http = require("http");
+const path = require("path");
+const fs = require("fs");
 
-const server=http.createServer((req,res)=>{
-    console.log({req,res})
-    // res.end("Welcome to Todo App")
-    if(req.url==='/todos' && req.method==='GET'){
-        res.writeHead(200,{
-            "content-type":""
-        })
-        res.end("Fetching all todos...")
-    }else if(req.url==='/todos/create-todos' && req.method==='POST'){
-        res.end("Creating a new todo...")
-    }else{
-        res.end("Route not found")
-    }
-})
+const filePath = path.join(__dirname, "./db/todo.json");
 
-server.listen(5000,"127.0.0.1",()=>{
-    console.log("Server is listening port 5000")
-})
+const server = http.createServer((req, res) => {
+  if (req.url === "/todos" && req.method === "GET") {
+    const data=fs.readFileSync(filePath,{encoding:"utf-8"})
+    res.writeHead(200, {
+      "content-type": "application/json",
+    });
+    res.end(data);
+  } else if (req.url === "/todos/create-todos" && req.method === "POST") {
+    res.end("Creating a new todo...");
+  } else {
+    res.end("Route not found");
+  }
+});
 
-/** 
-* /todos - Get - All Todo
-* /todos/create-todos POST Create
-*/
+server.listen(5000, "127.0.0.1", () => {
+  console.log("Server is listening port 5000");
+});
+
+/**
+ * /todos - Get - All Todo
+ * /todos/create-todos POST Create
+ */
