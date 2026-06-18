@@ -21,10 +21,14 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       console.log(data);
-      const todo = JSON.parse(data);
-      console.log(todo);
+      const {title,body} = JSON.parse(data)
+      const created_at=new Date().toLocaleString()
+      const allTodos= JSON.parse(fs.readFileSync(filePath,{encoding:"utf-8"}))
+      allTodos.push({title,body,created_at})
+      fs.writeFileSync(filePath, JSON.stringify(allTodos), {encoding:"utf-8"})
+      res.end(JSON.stringify({title,body,created_at}))
     });
-    res.end("Todo created successfully");
+    
   } else {
     res.end("Route not found");
   }
