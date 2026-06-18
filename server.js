@@ -25,8 +25,8 @@ const server = http.createServer((req, res) => {
       const created_at=new Date().toLocaleString()
       const allTodos= JSON.parse(fs.readFileSync(filePath,{encoding:"utf-8"}))
       allTodos.push({title,body,created_at})
-      fs.writeFileSync(filePath, JSON.stringify(allTodos), {encoding:"utf-8"})
-      res.end(JSON.stringify({title,body,created_at}))
+      fs.writeFileSync(filePath, JSON.stringify(allTodos),null,2, {encoding:"utf-8"})
+      res.end(JSON.stringify({title,body,created_at},null,2))
     });
     
   } else {
