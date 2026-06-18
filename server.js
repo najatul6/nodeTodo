@@ -15,15 +15,16 @@ const server = http.createServer((req, res) => {
   }
   //   Create ToDo
   else if (req.url === "/todos/create-todos" && req.method === "POST") {
-    let data=""
-    req.on("data", (chunk)=>{
-        data = data + chunk
-    })
-    console.log(data)
-    req.on("end", ()=>{
-        const data = JSON.parse(data)
-    })
-    res.end("Creating a new todo...");
+    let data = "";
+    req.on("data", (chunk) => {
+      data = data + chunk;
+    });
+    req.on("end", () => {
+      console.log(data);
+      const todo = JSON.parse(data);
+      console.log(todo);
+    });
+    res.end("Todo created successfully");
   } else {
     res.end("Route not found");
   }
