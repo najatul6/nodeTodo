@@ -5,13 +5,24 @@ const fs = require("fs");
 const filePath = path.join(__dirname, "./db/todo.json");
 
 const server = http.createServer((req, res) => {
+  // Get All ToDos
   if (req.url === "/todos" && req.method === "GET") {
-    const data=fs.readFileSync(filePath,{encoding:"utf-8"})
+    const data = fs.readFileSync(filePath, { encoding: "utf-8" });
     res.writeHead(200, {
       "content-type": "application/json",
     });
     res.end(data);
-  } else if (req.url === "/todos/create-todos" && req.method === "POST") {
+  }
+  //   Create ToDo
+  else if (req.url === "/todos/create-todos" && req.method === "POST") {
+    let data=""
+    req.on("data", (chunk)=>{
+        data = data + chunk
+    })
+    console.log(data)
+    req.on("end", ()=>{
+        const data = JSON.parse(data)
+    })
     res.end("Creating a new todo...");
   } else {
     res.end("Route not found");
