@@ -7,7 +7,8 @@ const filePath = path.join(__dirname, "./db/todo.json");
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathName=url.pathname
-  console.log(url)
+  console.log("Path Name:",pathName)
+
   // Get All ToDos
   if (pathName === "/todos" && req.method === "GET") {
     const data = fs.readFileSync(filePath, { encoding: "utf-8" });
@@ -16,6 +17,7 @@ const server = http.createServer((req, res) => {
     });
     res.end(data);
   }
+
   //   Create ToDo
   else if (pathName === "/todos/create-todos" && req.method === "POST") {
     let data = "";
